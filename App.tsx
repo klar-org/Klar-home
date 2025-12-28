@@ -8,18 +8,44 @@ const App: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMounted(true);
-    }, 800);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-white selection:bg-[#006D6B] selection:text-white overflow-hidden">
+      <style>{`
+        @keyframes draw {
+          from { stroke-dashoffset: 2000; }
+          to { stroke-dashoffset: 0; }
+        }
+        .draw-text {
+          stroke-dasharray: 2000;
+          animation: draw 2.5s ease-in-out forwards;
+        }
+      `}</style>
       <div className="max-w-4xl w-full py-12 md:py-24 text-center flex flex-col items-center relative z-10">
         <header
           className={`mb-8 transition-all duration-[1.5s] ease-[cubic-bezier(0.22,1,0.36,1)] ${mounted ? 'translate-y-0 scale-100' : 'translate-y-[35vh] scale-110'
             }`}
         >
-          <h1 className="text-8xl md:text-[14rem] font-extralight font-['Outfit'] tracking-[0.4em] uppercase text-[#006D6B] mr-[-0.4em]">Klar</h1>
+          <div className="relative">
+            <h1 className="text-8xl md:text-[14rem] font-extralight font-['Outfit'] tracking-[0.4em] uppercase text-[#006D6B] mr-[-0.4em] leading-none select-none">
+              <svg className="w-full h-[1.2em] overflow-visible">
+                <text
+                  x="50%"
+                  y="55%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className={`draw-text transition-all duration-500 ${mounted ? 'fill-[#006D6B] stroke-transparent' : 'fill-transparent stroke-[#006D6B]'
+                    }`}
+                  strokeWidth="2"
+                >
+                  Klar
+                </text>
+              </svg>
+            </h1>
+          </div>
         </header>
 
         <div className={`space-y-6 transition-all duration-1000 delay-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
@@ -68,7 +94,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-      <footer className={`mt-auto py-12 text-[10px] tracking-[0.6em] text-[#A4BEBD] uppercase text-center w-full max-w-5xl border-t border-[#E6F0F0] transition-all duration-1000 delay-[1200ms] ${mounted ? 'opacity-100' : 'opacity-0'
+      <footer className={`mt-auto py-12 text-[10px] tracking-[0.6em] text-[#A4BEBD] uppercase text-center w-full max-w-5xl border-t border-[#E6F0F0] transition-all duration-1000 delay-[1000ms] ${mounted ? 'opacity-100' : 'opacity-0'
         }`}>
         Klar — Nordic Memory Studio
       </footer>
